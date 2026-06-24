@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin — LA ESQUINA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <style>
+    /* Estilos adicionales para las vistas y el modal */
+    .dashboard-view {
+      display: none;
+    }
+    .dashboard-view.active {
+      display: block;
+    }
+    .btn-action {
+      padding: 8px 16px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.2s;
+      font-family: 'Nunito', sans-serif;
+    }
+    .btn-action:hover {
+      background: #b51c1c;
+    }
+    .btn-secondary {
+      background: #4b5563;
+      margin-right: 8px;
+    }
+    .btn-secondary:hover {
+      background: #374151;
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+    }
+    .modal.open {
+      display: flex;
+    }
+    .modal-content {
+      background: #1e202a;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      width: 480px;
+      color: var(--text-primary);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 10px;
+      background: #0d0e12;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: #fff;
+      outline: none;
+      font-family: 'Nunito', sans-serif;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--accent);
+    }
+    .flex-end {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <aside>
+    <div class="admin-logo">
+      <i class="fa-solid fa-pizza-slice"></i>
+      <span>LA ESQUINA</span> Admin
+    </div>
+    <ul class="menu-links">
+      <li class="active" data-view="resumen">
+        <a href="#"><i class="fa-solid fa-chart-line"></i> Resumen</a>
+      </li>
+      <li data-view="pedidos">
+        <a href="#"><i class="fa-solid fa-list-check"></i> Pedidos</a>
+      </li>
+      <li data-view="usuarios">
+        <a href="#"><i class="fa-solid fa-users"></i> Clientes</a>
+      </li>
+      <li data-view="carta">
+        <a href="#"><i class="fa-solid fa-utensils"></i> Carta / Pizzas</a>
+      </li>
+      <li>
+        <a href="index.html"><i class="fa-solid fa-shop"></i> Ver Tienda</a>
+      </li>
+      <li>
+        <a href="#" id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Salir</a>
+      </li>
+    </ul>
+  </aside>
+
+  <main>
+    <header>
+      <h1 id="view-title">Resumen</h1>
+      <div class="admin-profile">
+        <div class="admin-avatar">A</div>
+        <div>
+          <h4 id="admin-name">Administrador</h4>
+          <span style="font-size: 0.75rem; color: var(--text-secondary);">Rol: Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- VISTA: RESUMEN -->
+    <div id="view-resumen" class="dashboard-view active">
+      <section class="metrics">
+        <div class="metric-card">
+          <div>
+            <h3>Ventas de hoy</h3>
+            <div class="value" id="metric-sales">S/ 0.00</div>
+          </div>
+          <div class="metric-icon"><i class="fa-solid fa-coins"></i></div>
+        </div>
+
+        <div class="metric-card">
+          <div>
+            <h3>Pedidos Pendientes</h3>
+            <div class="value" id="metric-pending">0</div>
+          </div>
+          <div class="metric-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+        </div>
+
+        <div class="metric-card">
+          <div>
+            <h3>Entregas Completadas</h3>
+            <div class="value" id="metric-completed">0</div>
+          </div>
+      </section>
+
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 24px;">
+        <div class="panel">
+          <h2>Ventas del Día (Entregadas)</h2>
+          <div style="overflow-x: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Cliente</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody id="sales-today-tbody">
+                <tr><td colspan="3" style="text-align: center; color: var(--text-secondary);">Cargando ventas de hoy...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Pizzas Más Vendidas</h2>
+          <ul id="top-products-list" style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 16px;">
+            <li style="color: var(--text-secondary);">Cargando estadísticas...</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISTA: PEDIDOS -->
+    <div id="view-pedidos" class="dashboard-view">
+      <section class="panel">
+        <h2>Historial de Pedidos</h2>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>ID Pedido</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Productos (Cant)</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+              <tr>
+                <td colspan="7" style="text-align: center; color: var(--text-secondary);">Cargando pedidos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- VISTA: USUARIOS / CLIENTES -->
+    <div id="view-usuarios" class="dashboard-view">
+      <section class="panel">
+        <h2>Clientes Registrados</h2>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Fecha Registro</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="users-tbody">
+              <tr>
+                <td colspan="6" style="text-align: center; color: var(--text-secondary);">Cargando usuarios...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- VISTA: CARTA / PRODUCTOS -->
+    <div id="view-carta" class="dashboard-view">
+      <section class="panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h2>Gestión de la Carta</h2>
+          <button class="btn-action" onclick="openAddProductModal()">+ Agregar Pizza/Producto</button>
+        </div>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody">
+              <tr>
+                <td colspan="7" style="text-align: center; color: var(--text-secondary);">Cargando carta...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- MODAL: AGREGAR / EDITAR PRODUCTO -->
+  <div id="product-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Agregar Nuevo Producto</h3>
+        <button class="modal-close" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="product-form">
+        <input type="hidden" id="product-id">
+        <div class="form-group">
+          <label for="prod-nombre">Nombre de la Pizza / Producto</label>
+          <input type="text" id="prod-nombre" required placeholder="Ej. Americana Familiar">
+        </div>
+        <div class="form-group">
+          <label for="prod-descripcion">Descripción / Ingredientes</label>
+          <textarea id="prod-descripcion" rows="3" placeholder="Ej. Doble queso mozzarella y jamón..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="prod-precio">Precio (S/)</label>
+          <input type="number" id="prod-precio" step="0.10" required placeholder="12.90">
+        </div>
+        <div class="form-group">
+          <label for="prod-categoria">Categoría</label>
+          <select id="prod-categoria">
+            <option value="Clasica">Clásica</option>
+            <option value="Especialidad">Especialidad</option>
+            <option value="Promociones">Promociones / Combos</option>
+            <option value="Bebidas">Bebidas</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="prod-imagen">Ruta de Imagen (Opcional)</label>
+          <input type="text" id="prod-imagen" placeholder="Ej. img/img9.png">
+        </div>
+        <div class="form-group">
+          <label for="prod-stock">Stock / Cantidad Disponible</label>
+          <input type="number" id="prod-stock" min="0" required value="10">
+        </div>
+        <div class="flex-end">
+          <button type="button" class="btn-action btn-secondary" onclick="closeProductModal()">Cancelar</button>
+          <button type="submit" class="btn-action">Guardar Producto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

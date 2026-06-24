@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>LA ESQUINA — La Pizzeria del Perú</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="img/img1.png" alt="LA ESQUINA"/>
+    <span>LA ESQUINA</span>
+  </a>
+  <div class="nav-links">
+    <a href="#menu">Carta</a>
+    <a href="promos.html">Promos</a>
+    <a href="login.html" class="btn-nav">Iniciar Sesión</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">La pizzeria numero 1 de todo San Juan de Lurigancho</div>
+      <h1>El sabor de barrio<br/><span>que une a la familia</span></h1>
+      <div class="hero-actions">
+        <a href="#menu" class="btn-primary">Ver Carta Completa</a>
+        <a href="registro.html" class="btn-outline">Crear Cuenta</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="menu">
+    <div class="section-title">Nuestra <span>Carta</span></div>
+    <p class="section-sub">Los sabores más queridos por los peruanos</p>
+    <div class="products-grid">
+      <!-- Los productos se cargarán dinámicamente desde la base de datos -->
+      <div style="text-align: center; grid-column: 1/-1; color: var(--gray);">Cargando carta de pizzas...</div>
+    </div>
+  </section>
+
+  <div class="promo-banner" id="promos">
+    <img class="promo-bg" src="img/img0.png" alt="Promo"/>
+    <div class="promo-text">
+      <h2>2x1 todos los <span>Sabados</span></h2>
+      <p>Pide tu Pizza favorita y la segunda va por cuenta de la casa. Válido solo en app.</p>
+      <a href="promos.html" class="btn-primary">Aprovecha la promo</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="img/img1.png" alt="LA ESQUINA"/>
+      <h3>Pizzeria LA ESQUINA</h3>
+      <p>La pizzeria numero 1 de todo San Juan de Lurigancho.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Carta</h4>
+      <a href="#menu">Pizzas</a>
+      <a href="promos.html">Promos</a>
+    </div>
+    <div class="footer-col">
+      <h4>Mi cuenta</h4>
+      <a href="login.html">Iniciar sesión</a>
+      <a href="registro.html">Registrarse</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 La Esquina S.A.C. — Todos los derechos reservados. Hecho con ❤️ en el Perú.
+  </div>
+</footer>
+
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
