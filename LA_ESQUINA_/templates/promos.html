@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promociones - Pizzería La Esquina</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {--red:#2b7bd6; --red-dk:#2b7bd6; --yellow:#ffffff; --dark:#000000; --cream:#555555;}
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{height:100%; }
+body{min-height:100vh; display:flex; flex-direction:column; font-family:'Nunito',sans-serif; background:var(--cream); color:var(--dark);}
+main{flex:1;}
+nav{background:var(--dark); height:68px; padding:0 5%; display:flex; justify-content:space-between; align-items:center;}
+.nav-logo{display:flex; align-items:center; gap:12px; text-decoration:none;}
+.nav-logo img{width:42px; height:42px; border-radius:50%; background:#ffffff; padding:3px;}
+.nav-logo span{font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--yellow); letter-spacing:3px;}
+.nav-links{display:flex; gap:25px; align-items:center;}
+.nav-links a{text-decoration:none; color:#ddd; font-weight:600;}
+.nav-links a:hover{color:var(--yellow);}
+.btn-nav{background:var(--red); color:#fff !important; padding:10px 22px; border-radius:8px;}
+.section{padding:70px 5%;}
+.section-title{font-family:'Bebas Neue',sans-serif; font-size:3rem; letter-spacing:2px;}
+.section-title span{color:var(--red);}
+.section-sub{color:#777; margin-top:10px; margin-bottom:40px;}
+.products-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:24px;}
+.product-card{background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,.08); transition:.3s;}
+.product-card:hover{transform:translateY(-5px);}
+.product-card img{width:100%; height:190px; object-fit:cover; display:block;}
+.product-card-body{padding:18px;}
+.product-tag{color:var(--red); font-size:.75rem; font-weight:800; letter-spacing:.1em;}
+.product-card-body h3{font-family:'Bebas Neue',sans-serif; font-size:1.6rem; margin:8px 0;}
+.product-card-body p{color:#777; font-size:.9rem; margin-bottom:15px;}
+.product-footer{display:flex; justify-content:space-between; align-items:center;}
+.price{color:var(--red); font-family:'Bebas Neue',sans-serif; font-size:2rem;}
+.btn-add{background:var(--red); color:#fff; border:none; border-radius:8px; padding:10px 18px; cursor:pointer; font-weight:700; transition:.3s;}
+.btn-add:hover{background:var(--red-dk);}
+.btn-primary{background:var(--red); color:#fff; text-decoration:none; padding:14px 30px; border-radius:10px; font-family:'Bebas Neue',sans-serif; letter-spacing:1px;}
+footer{background:var(--dark); color:#888; text-align:center; padding:25px; margin-top:auto;}
+@media(max-width:768px){.nav-links{display:none;}.section-title{font-size:2.2rem;}}
+</style>
+</head>
+<body>
+<nav>
+    <a href="index.html" class="nav-logo">
+        <img src="./img/img1.png" alt="Logo">
+        <span>PIZZERIA LA ESQUINA</span>
+    </a>
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="login.html" class="btn-nav">Iniciar Sesión</a>
+    </div>
+</nav>
+<section class="section">
+    <h2 class="section-title">
+        NUESTRAS <span>PROMOCIONES</span>
+    </h2>
+    <p class="section-sub">
+        Las mejores ofertas para disfrutar en familia.
+    </p>
+
+    <div class="products-grid">
+        <div class="product-card">
+            <img src="./img/img6.png" alt="Combo La Familia">
+            <div class="product-card-body">
+                <div class="product-tag">COMBO LA FAMILIA</div>
+                <p>2 pizzas familiares + gaseosa de 1.5L.</p>
+                <div class="product-footer">
+                    <span class="price">S/ 135.90</span>
+                    <button class="btn-add"onclick="window.location.href='registro.html'">+ Pedir</button>
+                </div>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="./img/img10.png" alt="Duo de Barrio">
+
+            <div class="product-card-body">
+                <div class="product-tag">DUO DE BARRIO</div>
+                <p>2 pizzas clásicas personales + 2 gaseosas de 500ml.</p>
+                <div class="product-footer">
+                    <span class="price">S/ 29.90</span>
+                    <button class="btn-add" onclick="window.location.href='registro.html'">+ Pedir</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="./img/img3.png" alt="Mi Esquina">
+            <div class="product-card-body">
+                <div class="product-tag">MI ESQUINA</div>
+                <p>1 pizza grande clásica + 1 gaseosa de 1L + 3 rolls de pepperoni </p>
+                <div class="product-footer">
+                    <span class="price">S/ 60.70</span>
+                    <button class="btn-add"onclick="window.location.href='registro.html'">+ Pedir</button>
+                </div>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="./img/img11.png" alt="Mi Netho">
+            <div class="product-card-body">
+                <div class="product-tag">COMBO MI NETHO</div>
+                <p>2 pizzas grandes clásicas para compartir en familia.</p>
+                <div class="product-footer">
+                    <span class="price">S/ 91.80</span>
+                    <button class="btn-add" onclick="window.location.href='registro.html'">+ Pedir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    © 2026 Pizzería La Esquina - Todos los derechos reservados.
+</footer>
+</body>
+</html>
